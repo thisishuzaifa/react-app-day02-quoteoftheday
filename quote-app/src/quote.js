@@ -1,20 +1,36 @@
-import './quotes.js';
+import { useState } from 'react';
 
-/* On page load the component should output the following HTML
-A PARAGRAPH element with the text “Click the button to get a quote.”
-A BUTTON element with the text “Get Quote”
-You are free additional DIV or other HTML elements that you feel are necessary for
-semantic or styling reasons
-When the BUTTON element is clicked on the following should happen
-The initial PARAGRAPH element should be removed
-Select a random quote from the “quotes” array
-The application should not select the same quote twice in a row
-The quote should output the following:
-A BLOCKQUOTE element to wrap the quote element
-Inside the above BLOCKQUOTE element should be the following HTML
-elements
-A PARAGRAPH element to wrap the actual quote
-A FOOTER element to wrap the author of the quote
-Once a quote has been selected the BUTTON element’s text should change to “Get
-Another Quote”*/
 
+function Quote(quotes) {
+    const [btnName, setBtnName] = useState('Get Quote');
+    const [click, setClick] = useState(false);
+    const [num, setNum] = useState(0);
+
+    const generateNum = () => {
+        setNum(Math.floor((Math.random() * quotes.quotes.length) + 0));
+    }
+    const DisplayQuote = (quote) => {
+        return(
+            <blockquote>
+                <p>{quote.quote}</p>
+                <footer>{quote.author}</footer>
+            </blockquote>
+        )
+    }
+
+    return(
+        <div>
+            {!click ? <p>Click button to get a quote</p> : DisplayQuote(quotes.quotes[num])}
+            <button onClick={() => {
+                setClick(true);
+                generateNum();
+                console.log(num);
+                setBtnName('Get Another Quote');
+            }}>
+                {btnName}
+            </button>
+        </div>
+    )
+}
+
+export default Quote;

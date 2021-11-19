@@ -1,11 +1,9 @@
-
-
-const defaultProps = "React App"
-
-function Header(defaultProps) {
+function Header({header}) {
   return (
     <header className="App-header">
-      <h1>{defaultProps.title}</h1>
+      <h1>{header}</h1>
     </header>
   );
 }
+
+export default Header;
